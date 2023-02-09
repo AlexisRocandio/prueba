@@ -8,27 +8,33 @@ import Busqueda from "./components/Busqueda";
 
 function App() {
   const [info, setInfo] = useState({});
-  let [nombre, setSearch] = useState("");
+  let [nombre] = useState("");
+  const [pagina, setPagina] = useState(1);
 
-  const api = "https://rickandmortyapi.com/api/character";
+  const api = `https://rickandmortyapi.com/api/character?page=${pagina}`;
 
   const fetchCaracteres = (api) => {
     fetch(api)
       .then((response) => response.json())
       .then((data) => {
         setInfo(data.info);
+        console.log(data.info);
       })
       .catch((error) => console.error(error));
   };
   useEffect(() => {
     fetchCaracteres(api);
-  }, []);
+  }, [Pagina]);
 
   const onPrev = () => {
+    if(pagina >1){
+      setPagina(pagina-1);
+    }
     fetchCaracteres(info.prev);
     console.log(info.prev);
   };
   const onNext = () => {
+    setPagina(pagina+1);
     fetchCaracteres(info.next);
     console.log(info.next);
   };
@@ -37,7 +43,7 @@ function App() {
     <>
       <Navbar brand="Rick and Morty" />
       <Busqueda setSearch={nombre} />
-      <div className="grid justify-items-center bg-gray-800 text-white">
+      <div className="grid justify-items-center bg-gray-700 text-white">
         <Pagina
           prev={info.prev}
           next={info.next}

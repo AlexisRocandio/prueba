@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useHref, useParams } from "react-router-dom";
-import { unDetails } from "../funciones/funciones";
 import axios from "axios";
-import { todosPersonajes } from "../funciones/funciones";
+
 
 function Busqueda() {
   const [nombre, setNombre] = useState([]);
   const [tablaNombre, setTablaNombre] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [id, setInfo] = useState([]);
-  const api = "https://rickandmortyapi.com/api/character";
 
-  const [personajes, setPersonajes] = useState(null);
-  useEffect(() => {
-    todosPersonajes(setPersonajes);
-  }, []);
 
   const peticionGet = async () => {
     await axios
@@ -36,7 +29,7 @@ function Busqueda() {
   const filtrar = (terminoBusqueda) => {
     console.log(tablaNombre);
     var [resultadosBusqueda] = tablaNombre.filter((results) => {
-      console.log(results + "*results");
+      //console.log(results + "*results");
       if (
         results.name
           .toString()
@@ -50,7 +43,7 @@ function Busqueda() {
     setNombre(resultadosBusqueda.name);
     setInfo(resultadosBusqueda.id);
     console.log(resultadosBusqueda.image);
-    console.log("resultado de busqueda: " + nombre.split(" ").join(""));
+    console.log("resultado de busqueda: " + nombre);
     console.log(id);
   };
 
@@ -80,12 +73,12 @@ function Busqueda() {
               {
                 <div className="w-full sm:w-1/2 md:w-1/3 flex-wrap px-10">
                   <a
-                    classclassName="text-gray-900 text-xl font-medium mb-2 text-center"
+                    className="text-gray-900 text-xl font-medium mb-2 text-center"
                     href={`/details/${id}`}
                   >
                     {nombre}
                   </a>
-                  <img classclassName="w-full" src={setNombre.image} alt="" />
+                  <img className="w-full" src={setNombre.image} alt="" />
                 </div>
               }
 

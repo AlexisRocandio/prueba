@@ -16,4 +16,5 @@ const episodiosNum = async (id, state)=>{
 }
 
 
+
 export{ todosPersonajes, unDetails, episodiosNum}
